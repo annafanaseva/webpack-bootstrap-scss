@@ -7,6 +7,7 @@ import * as bootstrap from 'bootstrap'
 
 const countrySelect = document.getElementById("country-select");
 const citySelect = document.getElementById("city-select");
+let countryId;
 
 //chooseCountry
 function getCountries() {
@@ -20,21 +21,37 @@ function getCountries() {
         option.innerHTML = country;
         countrySelect.appendChild(option);
       }
+
+      countrySelect.addEventListener('change', () => {
+        let selectedCountry = countrySelect.options[countrySelect.selectedIndex].value;
+        console.log(selectedCountry);
+        countryId = Object.keys(data).find(key => data[key] === selectedCountry);
+        console.log(countryId);
+      })
     });
 }
 
-getCountries();
+console.log();
 
-//chooseCountry
-function getCities() {
-  fetch('https://namaztimes.kz/ru/api/cities?id='+'almaty'+'&type=json)')
+//Get state
+function getState() {
+  fetch('https://namaztimes.kz/ru/api/states?id=' + 98)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       console.log(data);
+    });
+}
+
+//chooseCity
+function getCities() {
+  fetch('https://namaztimes.kz/ru/api/cities?id=' + countryId + '&type=json)')
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
       for (let city of Object.values(data)) {
-        console.log(city);
         const option = document.createElement("option");
         option.innerHTML = city;
         citySelect.appendChild(option);
@@ -43,8 +60,9 @@ function getCities() {
 }
 
 getCountries();
+getState();
 getCities();
-``
+
 //Validation
 const forms = document.querySelectorAll('.needs-validation')
 Array.prototype.slice.call(forms)

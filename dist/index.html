@@ -82,10 +82,21 @@
             </div>
 
             <div class="mb-3">
-              <label  class="form-label">From</label>
-              <select class="form-select form-select-s" id="country-select" aria-label=".form-select-s example" required>
+
+              <label class="form-label">Country</label>
+              <select class="form-select form-select-s" id="country-select" aria-label=".form-select-s example"
+                required>
+                <option disabled hidden selected>Select</option>
+              </select>
+              <div class="invalid-feedback">
+                Fill in the field correctly
+              </div>
+
+              <label class="form-label">City</label>
+              <select class="form-select form-select-s" id="city-select" aria-label=".form-select-s example" required>
 
               </select>
+
               <div class="invalid-feedback">
                 Fill in the field correctly
               </div>
@@ -143,8 +154,6 @@
           </form>
         </div>
       </div>
-
-      <script src="./main.js"></script>
 </body>
 
 </html>
