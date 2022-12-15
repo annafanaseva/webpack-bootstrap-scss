@@ -25,6 +25,26 @@ module.exports = {
           "sass-loader",
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: './img/',
+              esModule: false,
+              useRelativePath: true
+            }
+          },
+        ]
+      },
+      {
+        test: /\.html$/,
+        use: [
+          'html-loader'
+        ]
+      },
     ],
   },
   plugins: [

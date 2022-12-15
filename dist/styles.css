@@ -10772,3 +10772,23 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.title {
+  margin-bottom: 60px;
+}
+
+.collapsed {
+  color: #000;
+}
+
+.nav-link {
+  color: #6693F5;
+}
+
+.form-input {
+  margin-bottom: 20px;
+}
+.form-input-title {
+  margin-bottom: 20px;
+  color: #6693F5;
+  font-size: 20px;
+}
