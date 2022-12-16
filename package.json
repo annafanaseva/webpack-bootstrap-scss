@@ -7,6 +7,7 @@
     "startCommand": "npm start"
   },
   "scripts": {
+    "serve": "webpack serve",
     "webpack": "webpack",
     "start": "webpack serve --mode development",
     "build": "webpack -w",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
     "html-loader": "^4.2.0",

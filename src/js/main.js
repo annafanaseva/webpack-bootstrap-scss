@@ -19,7 +19,6 @@ const flightCitySelectTo = document.getElementById("flight-city-select-to");
 const hotelsCitySelect = document.getElementById("hotels-city-select");
 const carsCitySelect = document.getElementById("cars-city-select");
 
-
 //chooseCountry
 function getCountries(countrySelect, stateSelect, citySelect) {
   let countryId;
@@ -99,15 +98,21 @@ document.getElementById("collapseCarsLink").addEventListener("click", () => {
   getCountries(carsCountrySelect, carsStateSelect, carsCitySelect);
 });
 
-let previousSearches = [];
+function addItemsToLocalStorage(history) {
+  if (localStorage.length >= 20) {
+    for (let key in localStorage) {
+      localStorage.clear();
+    }
+  }
+  localStorage.setItem(history, history);
+}
+
 function fillPreviousSearches(data) {
-  // for (let i = 0; i <= 20; i++) {
-  //   for (let j = 0; j < data.lenght; j++) {
-  //console.log(data[j].value);
-  previousSearches.push(data);
-  //   }
-  // }
-  console.log(previousSearches[0][0].value);
+  let history = [];
+  for (let key in data) {
+    history.push(data[key].value);
+  }
+  addItemsToLocalStorage(history);
 }
 
 function serializeForm(formNode) {
@@ -118,19 +123,30 @@ function serializeForm(formNode) {
       const { name, value } = element
       return { name, value }
     })
-
   fillPreviousSearches(data);
 }
 
 //Validation
 
 const forms = document.querySelectorAll('.needs-validation')
+const startDate = document.getElementById('flights-start-date');
+const endDate = document.getElementById('flights-end-date');
+
 Array.prototype.slice.call(forms)
   .forEach(function (form) {
     form.addEventListener('submit', function (event) {
       event.preventDefault();
+      event.stopPropagation();
       if (!form.checkValidity()) {
-        event.stopPropagation();
+        if (startDate.valueAsNumber > endDate.valueAsNumber) {
+          startDate.classList.add("is-invalid");
+          endDate.classList.add("is-invalid");
+        } else {
+          startDate.classList.remove("is-invalid");
+          endDate.classList.remove("is-invalid");
+          startDate.classList.add("is-valid");
+          endDate.classList.add("is-valid");
+        }
       }
       if (form.checkValidity()) {
         serializeForm(form);
@@ -140,29 +156,28 @@ Array.prototype.slice.call(forms)
     }, false)
   })
 
-
 //Nav links
 const collapseFlights = document.getElementById("collapseFlights");
 const collapseHotels = document.getElementById("collapseHotels");
 const collapseCars = document.getElementById("collapseCars");
-const history = document.getElementById("history");
+const historyWrapper = document.getElementById("history");
 
 document.getElementById("collapseFlightsLink").addEventListener("click", () => {
   collapseHotels.classList.remove("show");
   collapseCars.classList.remove("show");
-  history.classList.remove("show");
+  historyWrapper.classList.remove("show");
 });
 
 document.getElementById("collapseHotelsLink").addEventListener("click", () => {
   collapseFlights.classList.remove("show");
   collapseCars.classList.remove("show");
-  history.classList.remove("show");
+  historyWrapper.classList.remove("show");
 });
 
 document.getElementById("collapseCarsLink").addEventListener("click", () => {
   collapseHotels.classList.remove("show");
   collapseFlights.classList.remove("show");
-  history.classList.remove("show");
+  historyWrapper.classList.remove("show");
 });
 
 document.getElementById("historyLink").addEventListener("click", () => {
@@ -171,18 +186,34 @@ document.getElementById("historyLink").addEventListener("click", () => {
   collapseCars.classList.remove("show");
 });
 
-//Compare date
-// Array.prototype.slice.call(forms)
-//   .forEach(function (form) {
-//     form.addEventListener('submit', function () {
-//       console.log(new Date(document.getElementById("flights-start-date").value));
+document.getElementById("historyLink").addEventListener("click", () => {
+  showPreviousSearches();
+});
 
-//     });
-//   })
+const previosSearchWrapper = document.getElementById("previous-search");
 
-function compareDate(startDate, endDate) {
-  if (new Date(startDate) >= new Date(endDate)) {
+function showPreviousSearches() {
+  previosSearchWrapper.replaceChildren();
+  for (let key in localStorage) {
+    if (!localStorage.hasOwnProperty(key)) {
+      continue;
+    }
+    const history = document.createElement("p");
+    const historyText = document.createTextNode(localStorage[key]);
+    const cross = document.createElement('div');
+    cross.classList.add("history-cross");
+    const previosSearch = document.createElement('div');
 
+    history.appendChild(historyText);
+    previosSearch.classList.add("history-wrapper");
+
+    previosSearch.appendChild(history)
+    previosSearch.appendChild(cross)
+    previosSearchWrapper.appendChild(previosSearch)
+
+    cross.onclick = function () {
+      localStorage.removeItem(key);
+      showPreviousSearches(localStorage);
+    }
   }
 }
-
