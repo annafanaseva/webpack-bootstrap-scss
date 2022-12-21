@@ -149,10 +149,9 @@ Array.prototype.slice.call(forms)
         }
       }
       if (form.checkValidity()) {
+        form.classList.add('was-validated')
         serializeForm(form);
       }
-
-      form.classList.add('was-validated')
     }, false)
   })
 
