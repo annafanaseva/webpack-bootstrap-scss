@@ -80,11 +80,11 @@ function getCountries(countrySelect, stateSelect, citySelect) {
             })
           })
       })
-
   });
 }
 
 //Fill select
+
 document.getElementById("collapseFlightsLink").addEventListener("click", () => {
   getCountries(flightCountrySelectFrom, flightStateSelectFrom, flightCitySelectFrom);
   getCountries(flightCountrySelectTo, flightStateSelectTo, flightCitySelectTo);
@@ -128,35 +128,84 @@ function serializeForm(formNode) {
 
 //Validation
 
-const forms = document.querySelectorAll('.needs-validation')
-const startDate = document.getElementById('flights-start-date');
-const endDate = document.getElementById('flights-end-date');
+const flightsForm = document.getElementById('flightsForm');
+const hotelsForm = document.getElementById('hotelsForm');
+const carsForm = document.getElementById('carsForm');
 
-Array.prototype.slice.call(forms)
-  .forEach(function (form) {
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      if (!form.checkValidity()) {
-        if (startDate.valueAsNumber > endDate.valueAsNumber) {
-          startDate.classList.add("is-invalid");
-          endDate.classList.add("is-invalid");
-        } else {
-          startDate.classList.remove("is-invalid");
-          endDate.classList.remove("is-invalid");
-          startDate.classList.add("is-valid");
-          endDate.classList.add("is-valid");
-        }
-      }
-      if (form.checkValidity()) {
-        serializeForm(form);
-      }
+function validation(form) {
+  let result = true;
+  const allInputs = form.querySelectorAll('input');
 
-      form.classList.add('was-validated')
-    }, false)
-  })
+  function createError(input, text) {
+    const parent = input.parentNode;
+    const errorfeedback = document.createElement('p');
+    errorfeedback.classList.add("error-feedback");
+    errorfeedback.textContent = text;
+
+    parent.classList.add('error');
+    console.log(parent.childNodes)
+    parent.append(errorfeedback);
+  }
+
+  function removeError(input) {
+    const parent = input.parentNode;
+    if (parent.classList.contains("error")) {
+      parent.querySelector(".error-feedback").remove();
+      parent.classList.remove('error');
+    }
+  }
+
+  for (const input of allInputs) {
+    removeError(input);
+    if (input.valueAsNumber < Date.now()) {
+      createError(input, "Incorrect date");
+      result = false;
+    }
+  }
+
+  if (allInputs.length > 1) {
+    if (allInputs[0].valueAsNumber > allInputs[1].valueAsNumber) {
+      for (const input of allInputs) {
+        createError(input, "Choose correct start date");
+        result = false;
+      }
+    }
+  }
+
+  return result;
+}
+
+// Submit and serialize form
+
+flightsForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  if (validation(this)) {
+    serializeForm(this);
+    alert("Form was sent");
+    this.reset();
+  }
+})
+
+hotelsForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  if (validation(this)) {
+    serializeForm(this);
+    alert("Form was sent");
+    this.reset();
+  }
+})
+
+carsForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  if (validation(this)) {
+    serializeForm(this);
+    alert("Form was sent");
+    this.reset();
+  }
+})
 
 //Nav links
+
 const collapseFlights = document.getElementById("collapseFlights");
 const collapseHotels = document.getElementById("collapseHotels");
 const collapseCars = document.getElementById("collapseCars");
@@ -189,6 +238,8 @@ document.getElementById("historyLink").addEventListener("click", () => {
 document.getElementById("historyLink").addEventListener("click", () => {
   showPreviousSearches();
 });
+
+//History
 
 const previosSearchWrapper = document.getElementById("previous-search");
 

@@ -10825,3 +10825,11 @@ textarea.form-control-lg {
 .history-cross:after {
   transform: rotate(-45deg);
 }
+
+.error input {
+  border: 1px solid red;
+}
+
+.error-feedback {
+  color: red;
+}
