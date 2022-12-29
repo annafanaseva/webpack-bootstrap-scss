@@ -110,7 +110,7 @@ function addItemsToLocalStorage(history) {
 function fillPreviousSearches(data) {
   let history = [];
   for (let key in data) {
-    history.push(data[key].value);
+    history.unshift(data[key].value);
   }
   addItemsToLocalStorage(history);
 }
@@ -128,30 +128,25 @@ function serializeForm(formNode) {
 
 //Validation
 
-const flightsForm = document.getElementById('flightsForm');
-const hotelsForm = document.getElementById('hotelsForm');
-const carsForm = document.getElementById('carsForm');
-
 function validation(form) {
   let result = true;
   const allInputs = form.querySelectorAll('input');
 
   function createError(input, text) {
-    const parent = input.parentNode;
-    const errorfeedback = document.createElement('p');
-    errorfeedback.classList.add("error-feedback");
-    errorfeedback.textContent = text;
+    const inputParent = input.parentNode;
+    const feedbackError = document.createElement('p');
+    feedbackError.classList.add("error-feedback");
+    feedbackError.textContent = text;
 
-    parent.classList.add('error');
-    console.log(parent.childNodes)
-    parent.append(errorfeedback);
+    inputParent.classList.add('error');
+    inputParent.append(feedbackError);
   }
 
   function removeError(input) {
-    const parent = input.parentNode;
-    if (parent.classList.contains("error")) {
-      parent.querySelector(".error-feedback").remove();
-      parent.classList.remove('error');
+    const inputParent = input.parentNode;
+    if (inputParent.classList.contains("error")) {
+      inputParent.querySelector(".error-feedback").remove();
+      inputParent.classList.remove('error');
     }
   }
 
@@ -177,94 +172,40 @@ function validation(form) {
 
 // Submit and serialize form
 
-flightsForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  if (validation(this)) {
-    serializeForm(this);
-    alert("Form was sent");
-    this.reset();
-  }
-})
+var forms = document.querySelectorAll('.needs-validation');
 
-hotelsForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  if (validation(this)) {
-    serializeForm(this);
-    alert("Form was sent");
-    this.reset();
-  }
-})
-
-carsForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  if (validation(this)) {
-    serializeForm(this);
-    alert("Form was sent");
-    this.reset();
-  }
-})
+Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (validation(form)) {
+        serializeForm(form);
+        alert("Form was sent");
+        form.reset();
+      }
+    })
+  })
 
 //Nav links
-
 const collapseFlights = document.getElementById("collapseFlights");
 const collapseHotels = document.getElementById("collapseHotels");
 const collapseCars = document.getElementById("collapseCars");
-const historyWrapper = document.getElementById("history");
 
 document.getElementById("collapseFlightsLink").addEventListener("click", () => {
   collapseHotels.classList.remove("show");
   collapseCars.classList.remove("show");
-  historyWrapper.classList.remove("show");
 });
 
 document.getElementById("collapseHotelsLink").addEventListener("click", () => {
   collapseFlights.classList.remove("show");
   collapseCars.classList.remove("show");
-  historyWrapper.classList.remove("show");
 });
 
 document.getElementById("collapseCarsLink").addEventListener("click", () => {
   collapseHotels.classList.remove("show");
   collapseFlights.classList.remove("show");
-  historyWrapper.classList.remove("show");
-});
-
-document.getElementById("historyLink").addEventListener("click", () => {
-  collapseHotels.classList.remove("show");
-  collapseFlights.classList.remove("show");
-  collapseCars.classList.remove("show");
 });
 
 document.getElementById("historyLink").addEventListener("click", () => {
   showPreviousSearches();
 });
-
-//History
-
-const previosSearchWrapper = document.getElementById("previous-search");
-
-function showPreviousSearches() {
-  previosSearchWrapper.replaceChildren();
-  for (let key in localStorage) {
-    if (!localStorage.hasOwnProperty(key)) {
-      continue;
-    }
-    const history = document.createElement("p");
-    const historyText = document.createTextNode(localStorage[key]);
-    const cross = document.createElement('div');
-    cross.classList.add("history-cross");
-    const previosSearch = document.createElement('div');
-
-    history.appendChild(historyText);
-    previosSearch.classList.add("history-wrapper");
-
-    previosSearch.appendChild(history)
-    previosSearch.appendChild(cross)
-    previosSearchWrapper.appendChild(previosSearch)
-
-    cross.onclick = function () {
-      localStorage.removeItem(key);
-      showPreviousSearches(localStorage);
-    }
-  }
-}

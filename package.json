@@ -23,11 +23,11 @@
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "jquery": "^3.6.1",
     "mini-css-extract-plugin": "^2.7.0",
     "popper.js": "^1.16.1",
     "postcss-loader": "^7.0.1",
