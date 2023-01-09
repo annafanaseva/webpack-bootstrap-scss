@@ -3,10 +3,13 @@
   "description": "Include Bootstrap's source Sass and individual JavaScript plugins with Webpack.",
   "version": "0.0.0",
   "private": true,
+  "homepage": "https://annafanaseva.github.io/webpack-bootstrap-scss",
   "stackblitz": {
     "startCommand": "npm start"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "serve": "webpack serve",
     "webpack": "webpack",
     "start": "webpack serve --mode development",
@@ -26,6 +29,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
+    "gh-pages": "^4.0.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.0",
