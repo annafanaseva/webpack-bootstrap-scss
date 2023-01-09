@@ -1,0 +1,69 @@
+@import "~bootstrap/scss/bootstrap";
+
+.title {
+  margin-bottom: 60px;
+}
+
+.collapsed {
+  color: #000;
+}
+
+.nav-link {
+  color: #6693f5;
+}
+
+.form {
+  &-input {
+    margin-bottom: 20px;
+
+    &-title {
+      margin-bottom: 20px;
+      color: #6693f5;
+      font-size: 20px;
+    }
+  }
+}
+
+.history {
+  &-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    p{
+      margin: 0;
+    }
+  }
+  &-cross {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    opacity: 0.3;
+    &:hover {
+      opacity: 1;
+    }
+    &:before,
+    &:after {
+      position: absolute;
+      left: 15px;
+      content: " ";
+      height: 16px;
+      width: 2px;
+      background-color: #000;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+.error input{
+  border: 1px solid red;
+}
+
+.error-feedback{
+  color: red;
+}
