@@ -1,7 +1,10 @@
 {
   "name": "webpack",
   "description": "Include Bootstrap's source Sass and individual JavaScript plugins with Webpack.",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "repository": {
+    "url": "git+https://github.com/annafanaseva/webpack-bootstrap-scss.git"
+  },
   "private": true,
   "homepage": "https://annafanaseva.github.io/webpack-bootstrap-scss",
   "stackblitz": {
@@ -9,7 +12,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "serve": "webpack serve",
     "webpack": "webpack",
     "start": "webpack serve --mode development",
