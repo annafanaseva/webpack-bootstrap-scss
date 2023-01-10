@@ -630,13 +630,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
-/***/ "./src/assets/js/history.js":
-/*!**********************************!*\
-  !*** ./src/assets/js/history.js ***!
-  \**********************************/
+/***/ "./src/history.js":
+/*!************************!*\
+  !*** ./src/history.js ***!
+  \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/styles.scss */ \"./src/assets/scss/styles.scss\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.esm.js\");\n// Import our custom CSS\n\n\n// Import all of Bootstrap's JS\n\n\nconst previousSearchWrapper = document.getElementById(\"previous-search\");\n\nfunction showPreviousSearches() {\n  previousSearchWrapper.replaceChildren();\n  for (let key in localStorage) {\n    if (!localStorage.hasOwnProperty(key)) {\n      continue;\n    }\n    const history = document.createElement(\"p\");\n    const historyText = document.createTextNode(localStorage[key]);\n    const cross = document.createElement('div');\n    cross.classList.add(\"history-cross\");\n    const previousSearch = document.createElement('div');\n\n    history.appendChild(historyText);\n    previousSearch.classList.add(\"history-wrapper\");\n\n    previousSearch.appendChild(history)\n    previousSearch.appendChild(cross)\n    previousSearchWrapper.appendChild(previousSearch)\n\n    cross.onclick = function () {\n      localStorage.removeItem(key);\n      showPreviousSearches(localStorage);\n    }\n  }\n}\n\nshowPreviousSearches()\n\n\n//# sourceURL=webpack://webpack/./src/assets/js/history.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _assets_scss_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/scss/styles.scss */ \"./src/assets/scss/styles.scss\");\n/* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap */ \"./node_modules/bootstrap/dist/js/bootstrap.esm.js\");\n// Import our custom CSS\n\n\n// Import all of Bootstrap's JS\n\n\nconst previousSearchWrapper = document.getElementById(\"previous-search\");\n\nfunction showPreviousSearches() {\n  previousSearchWrapper.replaceChildren();\n  for (let key in localStorage) {\n    if (!localStorage.hasOwnProperty(key)) {\n      continue;\n    }\n    const history = document.createElement(\"p\");\n    const historyText = document.createTextNode(localStorage[key]);\n    const cross = document.createElement('div');\n    cross.classList.add(\"history-cross\");\n    const previousSearch = document.createElement('div');\n\n    history.appendChild(historyText);\n    previousSearch.classList.add(\"history-wrapper\");\n\n    previousSearch.appendChild(history)\n    previousSearch.appendChild(cross)\n    previousSearchWrapper.appendChild(previousSearch)\n\n    cross.onclick = function () {\n      localStorage.removeItem(key);\n      showPreviousSearches(localStorage);\n    }\n  }\n}\n\nshowPreviousSearches()\n\n\n//# sourceURL=webpack://webpack/./src/history.js?");
 
 /***/ })
 
@@ -700,7 +700,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scs
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/assets/js/history.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/history.js");
 /******/ 	
 /******/ })()
 ;

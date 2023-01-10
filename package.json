@@ -16,7 +16,7 @@
     "serve": "webpack serve",
     "webpack": "webpack",
     "start": "webpack serve --mode development",
-    "build": "webpack -w",
+    "build": "webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

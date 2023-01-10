@@ -8,8 +8,8 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    index: './src/assets/js/main.js',
-    history: './src/assets/js/history.js',
+    index: './src/main.js',
+    history: './src/history.js',
   },
   output: {
     filename: "[name].js",
@@ -46,11 +46,19 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
       chunks: ['index']
     }),
     new HtmlWebpackPlugin({
       filename: 'history.html',
       template: './src/history.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
       chunks: ['history']
     }),
     new CopyWebpackPlugin({
